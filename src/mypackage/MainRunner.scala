@@ -9,11 +9,45 @@ import util.matching.Regex.Match
 import java.util.HashMap
 import scala.collection.JavaConversions._
 import collection.mutable
+import java.net.URLEncoder
+
+case class Guy(name: String, age: Int)
 
 object MainRunner {
 
   def main(args: Array[String]):Any = {
-    regexFun
+    callJsonLikeFuncs(
+    'onSuccess -> (() => {
+      List("clojure", "is", "more", "functional").mkString("-")
+    }),
+    'onError -> (() => {
+      'but_this_is_ok
+    })
+
+    )
+  }
+
+  def callJsonLikeFuncs(args: (Symbol, () => Any)*) {
+    args.foreach { value: (Symbol, () => Any) =>
+      value match {
+        case (k:Symbol, f:Function0[_]) => {
+          println("For k", k)
+          println("the value is ", f())
+        }
+      }
+    }
+  }
+
+
+  def caseUnapply {
+    val g = new Guy("him", 22)
+    val res: Option[(String, Int)] = Guy.unapply(g)
+    println(res.head.productIterator.toList)
+    // Equals to
+    res match {
+      case Some((a, b)) => List(a, b); println("the value is", a, b)
+      case None =>
+    }
   }
 
   def nativeMapPrinting {
