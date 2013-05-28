@@ -16,14 +16,25 @@ case class Guy(name: String, age: Int)
 object MainRunner {
 
   def main(args: Array[String]):Any = {
-    callJsonLikeFuncs(
-    'onSuccess -> (() => {
-      List("clojure", "is", "more", "functional").mkString("-")
-    }),
-    'onError -> (() => {
-      'but_this_is_ok
-    })
+    println(myfind())
 
+  }
+
+  def myfind(): Boolean = {
+    (1 to 10).foreach { i =>
+      if (i > 5) return true
+    }
+    return false
+  }
+
+  def jqueryLikeDsl {
+    callJsonLikeFuncs(
+      'onSuccess -> (() => {
+        List("clojure", "is", "more", "functional").mkString("-")
+      }),
+      'onError -> (() => {
+        'but_this_is_ok
+      })
     )
   }
 
