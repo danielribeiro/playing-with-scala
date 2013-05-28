@@ -16,8 +16,23 @@ case class Guy(name: String, age: Int)
 object MainRunner {
 
   def main(args: Array[String]):Any = {
-    println(myfind())
+    returnIsLexicallyScoped
+  }
 
+  def returnIsLexicallyScoped {
+    println("here")
+    val ret = parametrizedMyfind { i =>
+      println("for number ", i)
+      if (i > 5) return true
+      false
+    }
+    println("will not get here")
+    println(ret)
+  }
+
+  def parametrizedMyfind(f: Int => Boolean): Boolean = {
+    (1 to 10).foreach(f)
+    return false
   }
 
   def myfind(): Boolean = {
