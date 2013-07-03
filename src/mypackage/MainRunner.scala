@@ -16,8 +16,21 @@ case class Guy(name: String, age: Int)
 object MainRunner {
 
   def main(args: Array[String]):Any = {
-    returnIsLexicallyScoped
+    chainVarargs()
   }
+
+  def chainVarargs() {
+    v1('one, 'two, 'three)
+  }
+
+  def v1(l:Any*) {
+    println("doing it wrong ->")
+    v2(l)
+    println("doing it right ->")
+    v2(l:_*)
+  }
+
+  def v2(l:Any*) = l.foreach(println)
 
   def returnIsLexicallyScoped {
     println("here")
